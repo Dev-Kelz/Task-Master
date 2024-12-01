@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% block head%} {% endblock%} {% block body%}
+
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h1 class="card-title text-center mb-4">Task Master</h1>
+
+          {%if tasks|length < 1 %}
+          <div class="alert alert-info" role="alert">
+            There are no tasks. Create one below!
+          </div>
+          {%else%}
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th>Task</th>
+                  <th>Added</th>
+                  <th class="text-end">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%for task in tasks%}
+                <tr>
+                  <td>{{task.content}}</td>
+                  <td>{{ task.date_created.date()}}</td>
+                  <td class="text-end">
+                    <a href="/update/{{task.id}}" class="btn btn-warning btn-sm">Update</a>
+                    <a href="/delete/{{task.id}}" class="btn btn-danger btn-sm">Delete</a>
+                  </td>
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </div>
+          {%endif%}
+
+          <form action="/" method="POST" class="mt-4">
+            <div class="mb-3">
+              <input type="text" name="content" class="form-control" id="content" placeholder="Enter new task" required>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">Add Task</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock%}
