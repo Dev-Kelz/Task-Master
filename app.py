@@ -66,4 +66,4 @@ with app.app_context():
 
 if __name__ == '__main__':
     print("Flask app is running.")
-    app.run()
+    app.run( debug=True)
