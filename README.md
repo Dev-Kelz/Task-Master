@@ -4,11 +4,18 @@ A simple and efficient task management web application built with Flask and SQLi
 
 ## Features
 
-- Create, read, update, and delete tasks
-- Clean and responsive user interface
-- Tasks are sorted by creation date
-- Persistent storage using SQLite database
-- Built with Flask and SQLAlchemy
+- **User Authentication**
+  - Secure user registration and login
+  - Password hashing for security
+  - Protected routes for authenticated users only
+- **Task Management**
+  - Create, read, update, and delete tasks
+  - Tasks are sorted by creation date
+  - User-specific task management
+- **Technical**
+  - Clean and responsive user interface
+  - Persistent storage using SQLite database
+  - Built with Flask and SQLAlchemy
 
 ## Prerequisites
 
@@ -60,36 +67,57 @@ A simple and efficient task management web application built with Flask and SQLi
 
 ## Usage
 
+### Authentication
+1. **Register** a new account by clicking the "Register" link in the navigation bar
+2. **Login** with your credentials
+3. **Logout** when you're done to secure your account
+
+### Task Management
 - **Add a task**: Type your task in the input field and press Enter or click the "Add Task" button
 - **Update a task**: Click the "Update" button next to the task you want to modify
 - **Delete a task**: Click the "Delete" button next to the task you want to remove
+
+> **Note**: You must be logged in to manage tasks. Each user can only view and modify their own tasks.
 
 ## Project Structure
 
 ```
 Task-Master/
 ├── instance/
-│   └── database.db        # SQLite database file
+│   └── database.db            # SQLite database file
 ├── static/
 │   └── css/
-│       ├── main.css       # Custom styles
+│       ├── main.css           # Custom styles
+│       ├── tasks.css          # Task-specific styles
 │       └── bootstrap.min.css  # Bootstrap CSS
 ├── templates/
-│   ├── base.html         # Base template
-│   ├── index.html        # Main page template
-│   └── update.html       # Update task template
-├── app.py               # Main application file
-└── requirements.txt     # Python dependencies
+│   ├── base.html             # Base template with navigation
+│   ├── index.html            # Main tasks page template
+│   ├── login.html            # User login page
+│   ├── register.html         # User registration page
+│   ├── update.html           # Task update template
+│   ├── welcome.html          # Welcome/landing page
+│   ├── 404.html              # 404 error page
+│   └── 500.html              # 500 error page
+├── app.py                   # Main application file
+└── requirements.txt         # Python dependencies
 ```
 
 ## Dependencies
 
-- Flask 3.1.0
-- Flask-SQLAlchemy 3.1.1
-- SQLAlchemy 2.0.25
-- Werkzeug 3.0.1
-- Jinja2 3.1.3
-- itsdangerous 2.1.2
+- Flask==3.1.0
+- Flask-Login==0.6.3
+- Flask-SQLAlchemy==3.1.1
+- Flask-WTF==1.2.1
+- SQLAlchemy==2.0.36
+- Werkzeug==3.1.3
+- Jinja2==3.1.4
+- itsdangerous==2.2.0
+- email-validator==2.1.0.post1
+- gunicorn==23.0.0  # For production deployment
+- blinker==1.9.0  # For flash messages
+- click==8.1.7  # Command Line Interface Creation Kit
+- greenlet==3.1.1  # SQLAlchemy concurrency support
 
 ## License
 
