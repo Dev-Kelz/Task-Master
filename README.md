@@ -19,7 +19,7 @@ A simple and efficient task management web application built with Flask and SQLi
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/y/Task-Master.git
+   git clone https://github.com/Dev-Kelz/Task-Master.git
    cd Task-Master
    ```
 
