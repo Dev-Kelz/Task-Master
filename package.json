@@ -1,0 +1,17 @@
+{
+  "name": "task-master",
+  "version": "1.0.0",
+  "description": "A simple and efficient task management web application built with Flask.",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "tailwindcss -i ./project/static/css/input.css -o ./project/static/css/output.css --minify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5"
+  }
+}

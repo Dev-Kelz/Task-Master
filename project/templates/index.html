@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+  <div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h2 class="text-2xl font-bold mb-4 text-gray-800">Add a New Task</h2>
+    <form method="POST" class="flex gap-4">
+      {{ form.hidden_tag() }}
+      <div class="flex-grow">
+        {{ form.content(class='w-full rounded-md border-gray-300 shadow-sm focus:border-slate-500 focus:ring-slate-500', placeholder='What do you need to do?') }}
+        {% if form.content.errors %}
+            <p class="mt-2 text-sm text-red-600">{{ form.content.errors[0] }}</p>
+        {% endif %}
+      </div>
+      <div>
+        {{ form.submit(class='inline-flex justify-center rounded-md bg-slate-800 py-2 px-4 text-sm font-semibold text-white shadow-sm hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600') }}
+      </div>
+    </form>
+  </div>
+
+  <div class="bg-white shadow-md rounded-lg">
+    <div class="px-4 py-5 sm:px-6">
+      <h2 class="text-2xl font-bold text-gray-800">Your Tasks</h2>
+    </div>
+    <div class="border-t border-gray-200">
+      {% if tasks|length < 1 %}
+        <p class="p-6 text-center text-gray-500">You have no tasks. Add one above to get started!</p>
+      {% else %}
+        <ul role="list" class="divide-y divide-gray-200">
+          {% for task in tasks %}
+            <li class="p-4 hover:bg-gray-50">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <a href="{{ url_for('main.toggle_complete', id=task.id) }}" class="mr-4">
+                    {% if task.completed %}
+                      <svg class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    {% else %}
+                      <svg class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    {% endif %}
+                  </a>
+                  <div class="min-w-0 flex-1">
+                    <p class="text-sm font-medium text-gray-900 truncate {% if task.completed %}line-through text-gray-500{% endif %}">{{ task.content }}</p>
+                    <p class="text-sm text-gray-500">Added on {{ task.date_created.strftime('%b %d, %Y') }}</p>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                  <a href="{{ url_for('main.update', id=task.id) }}" class="text-sm font-medium text-slate-600 hover:text-slate-900">Update</a>
+                  <a href="{{ url_for('main.delete', id=task.id) }}" class="text-sm font-medium text-red-600 hover:text-red-900">Delete</a>
+                </div>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
