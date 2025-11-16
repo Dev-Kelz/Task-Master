@@ -3,7 +3,7 @@
 FROM node:18-alpine as builder
 
 # Set the working directory
-WORKDIR /app
+WORKDIR /run
 
 # Copy package files and install dependencies
 COPY package.json ./
