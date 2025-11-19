@@ -7,6 +7,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
+    is_email_verified = db.Column(db.Boolean, default=False)
     password_hash = db.Column(db.String(128))
     tasks = db.relationship('Todo', backref='author', lazy=True)
 

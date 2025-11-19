@@ -27,7 +27,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the built assets from the builder stage
-COPY --from=builder /app/project/static/css/output.css ./project/static/css/output.css
+COPY --from=builder /run/project/static/css/output.css ./project/static/css/output.css
 
 # Copy the application code
 COPY project/ ./project/
