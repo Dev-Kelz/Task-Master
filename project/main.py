@@ -33,8 +33,39 @@ def home():
             flash('Error adding task. Please try again.', 'danger')
             # Consider logging the error e
     
-    tasks = Todo.query.filter_by(user_id=current_user.id).order_by(Todo.date_created).all()
-    return render_template('index.html', tasks=tasks, form=form)
+    # Get filter parameters from URL
+    status_filter = request.args.get('status', 'all')
+    priority_filter = request.args.get('priority', 'all')
+    
+    # Base query for user's tasks
+    query = Todo.query.filter_by(user_id=current_user.id)
+    
+    # Apply status filter
+    if status_filter == 'todo':
+        query = query.filter_by(completed=False)
+    elif status_filter == 'done':
+        query = query.filter_by(completed=True)
+    # 'all' and 'in_progress' don't filter (since we don't have in_progress status in the model)
+    
+    tasks = query.order_by(Todo.date_created).all()
+    
+    # Calculate stats for all user tasks (not filtered)
+    all_tasks = Todo.query.filter_by(user_id=current_user.id).all()
+    total_tasks = len(all_tasks)
+    completed_count = len([task for task in all_tasks if task.completed])
+    to_do_count = total_tasks - completed_count
+    in_progress_count = 0  # Not applicable with current model
+    
+    return render_template('index.html', 
+                         tasks=tasks, 
+                         form=form,
+                         selected_status=status_filter,
+                         selected_priority=priority_filter,
+                         total_tasks=total_tasks,
+                         to_do_count=to_do_count,
+                         in_progress_count=in_progress_count,
+                         completed_count=completed_count)
+    
 
 @main.route('/delete/<int:id>')
 @login_required
